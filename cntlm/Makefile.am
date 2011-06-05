@@ -1,0 +1,6 @@
+bin_PROGRAMS = cntlm
+cntlm_SOURCES = main.c
+cntlm_CPPFLAGS = -I$(top_srcdir)/libcntlm
+cntlm_LDFLAGS = -pthread
+cntlm_LDADD = ../libcntlm/libcntlm.la
+

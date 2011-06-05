@@ -30,7 +30,7 @@
 #include <ctype.h>
 #include <syslog.h>
 
-#include "config/config.h"
+#include "../config.h"
 #include "swap.h"
 #include "utils.h"
 #include "socket.h"
@@ -638,7 +638,7 @@ char *trimr(char *buf) {
 	return buf;
 }
 
-#if config_strdup == 0
+#if HAVE_STRDUP == 0
 /*
  * Our implementation of non-POSIX strdup()
  */

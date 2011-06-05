@@ -24,7 +24,7 @@
 
 #include <stdint.h>
 
-#include "config/config.h"
+#include "../config.h"
 
 #define swap16(x) \
 	((uint16_t)( \
@@ -49,7 +49,7 @@
 		(((uint64_t)(x) & (uint64_t)0x000000000000ff00ULL) << 40) | \
 		(((uint64_t)(x) & (uint64_t)0x00000000000000ffULL) << 56) ))
 
-#if config_endian == 0
+#if WORDS_BIGENDIAN == 1
 # define U16LE(x)		swap16(x)
 # define U32LE(x)		swap32(x)
 # define U64LE(x)		swap64(x)

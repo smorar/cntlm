@@ -46,19 +46,19 @@
  * Some helping routines like linked list manipulation substr(), memory
  * allocation, NTLM authentication routines, etc.
  */
-#include "config/config.h"
-#include "socket.h"
-#include "utils.h"
-#include "ntlm.h"
+//#include "../config.h"
+//#include "socket.h"
+//#include "utils.h"
+//#include "ntlm.h"
 #include "swap.h"
-#include "config.h"
+#include "conf.h"
 #include "acl.h"
 #include "auth.h"
-#include "http.h"
+//#include "http.h"
 #include "globals.h"
-#include "pages.h"
-#include "forward.h"				/* code serving via parent proxy */
-#include "direct.h"				/* code serving directly without proxy */
+//#include "pages.h"
+//#include "forward.h"				/* code serving via parent proxy */
+//#include "direct.h"				/* code serving directly without proxy */
 
 #define STACK_SIZE	sizeof(void *)*8*1024
 
@@ -704,7 +704,7 @@ int main(int argc, char **argv) {
 
 	openlog("cntlm", LOG_CONS, LOG_DAEMON);
 
-#if config_endian == 0
+#if WORDS_BIGENDIAN == 1
 	syslog(LOG_INFO, "Starting cntlm version " VERSION " for BIG endian\n");
 #else
 	syslog(LOG_INFO, "Starting cntlm version " VERSION " for LITTLE endian\n");
@@ -1140,7 +1140,7 @@ int main(int argc, char **argv) {
 	 * Set default value for the workstation. Hostname if possible.
 	 */
 	if (!strlen(cworkstation)) {
-#if config_gethostname == 1
+#if HAVE_GETHOSTNAME == 1
 		gethostname(cworkstation, MINIBUF_SIZE);
 #endif
 		if (!strlen(cworkstation))

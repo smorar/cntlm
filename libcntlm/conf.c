@@ -25,7 +25,7 @@
 #include <stdlib.h>
 
 #include "globals.h"
-#include "config.h"
+#include "conf.h"
 #include "utils.h"
 
 static const char *globals[] = {
