@@ -27,17 +27,16 @@ AC_TYPE_UINT16_T
 AC_TYPE_UINT32_T
 AC_TYPE_UINT64_T
 AC_TYPE_UINT8_T
+AC_CHECK_TYPE([socklen_t], [],
+            [AC_DEFINE_UNQUOTED([socklen_t], [uint32_t],
+               [Define to `uint32_t'
+                if <sys/socket.h> does not define.])])
 
 # Checks for library functions.
 AC_FUNC_FORK
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([dup2 gethostbyname gethostname inet_ntoa memset select socket strcasecmp strchr strcspn strdup strerror strncasecmp strstr strtol strtoul])
-AC_MSG_CHECKING([for socklen_t])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/types.h>]], [[#include <sys/socket.h>]])],[socklen_t foo; foo=1235;],[
-      AC_DEFINE([HAVE_SOCKLEN_T], 1, [Define to 1 if you have the socklen_t type.])
-      AC_MSG_RESULT(yes)
-])
 AC_C_BIGENDIAN
 
 AC_CONFIG_FILES([libcntlm/Makefile cntlm/Makefile Makefile])
