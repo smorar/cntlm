@@ -4,6 +4,9 @@ SUBDIRS = libcntlm cntlm
 man_MANS = doc/cntlm.1
 sysconf_DATA = doc/cntlm.conf
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libcntlm.pc
+
 win: buildwin
 buildwin:
 	@echo

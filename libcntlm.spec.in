@@ -1,0 +1,44 @@
+Name: libcntlm
+Version: @PACKAGE_VERSION@
+Release: 1
+Group: Development/Libraries
+Summary: Microsoft WinNT domain authentication library
+License: LGPL
+Source: http://downloads.sourceforge.net/project/cntlm/cntlm/cntlm%20%{version}/cntlm-%{version}.tar.gz
+URL: http://cntlm.sourceforge.net
+BuildRoot: %{_tmppath}/root-%{name}-%{version}
+
+%package devel
+License: LGPL
+Group: Development/Libraries
+Summary: Microsoft WinNT domain authentication library for development
+
+%description
+A library for authenticating with Microsoft NTLM challenge-response,
+derived from Samba sources.
+
+%description devel
+Development files needed for compiling against libcntlm.
+
+%prep
+%setup
+
+%build
+%configure
+make
+
+%install
+%makeinstall
+
+%files
+%defattr(-,root,root)
+%{_libdir}/libcntlm.so*
+
+%files devel
+%defattr(-,root,root)
+%{_includedir}/cntlm.h
+%{_libdir}/libcntlm.a
+%{_libdir}/libcntlm.la
+%{_libdir}/pkgconfig/libcntlm.pc
+%doc README THANKS NEWS
+

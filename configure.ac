@@ -1,8 +1,26 @@
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
+dnl Process this file with autoconf to produce a configure script.
+
+dnl Copyright (C) 2011 Sameer Morar.
+dnl
+dnl This file is part of cntlm
+dnl
+dnl cntlm is free software; you can redistribute it and/or modify
+dnl it under the terms of the GNU Lesser General Public License as
+dnl published by the Free Software Foundation; either version 2.1 of
+dnl the License, or (at your option) any later version.
+dnl
+dnl cntlm is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl GNU Lesser General Public License for more details.
+dnl
+dnl You should have received a copy of the GNU Lesser General Public
+dnl License along with cntlm; if not, write to the Free Software
+dnl Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+dnl 02110-1301, USA
 
 AC_PREREQ([2.67])
-AC_INIT([cntlm],[0.91rc6],[smorar@gmail.com])
+AC_INIT([cntlm],[0.91rc6],[dave@awk.cz])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([cntlm/main.c])
 AC_CONFIG_HEADERS([config.h])
@@ -73,5 +91,12 @@ AC_FUNC_REALLOC
 AC_CHECK_FUNCS([dup2 gethostbyname gethostname inet_ntoa memset select socket strcasecmp strchr strcspn strdup strerror strncasecmp strstr strtol strtoul])
 AC_C_BIGENDIAN
 
-AC_CONFIG_FILES([libcntlm/Makefile cntlm/Makefile Makefile])
+AC_CONFIG_FILES([
+	libcntlm/Makefile 
+	cntlm/Makefile 
+	Makefile
+	libcntlm.pc
+	libcntlm.spec
+	libcntlm/cntlm.h
+])
 AC_OUTPUT
