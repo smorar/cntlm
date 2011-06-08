@@ -16,6 +16,7 @@ OutputBaseFileName=cntlm-$VERSION-setup
 OutputDir=.
 
 [Files]
+Source: "cntlm.ico"; DestDir: "{app}"
 Source: "cntlm.exe"; DestDir: "{app}"
 Source: "cygrunsrv.exe"; DestDir: "{app}"
 Source: "cygwin1.dll"; DestDir: "{app}"

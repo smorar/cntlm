@@ -1,4 +1,5 @@
 ACLOCAL_AMFLAGS = -I m4
+VER=`cat VERSION`
 SUBDIRS = libcntlm cntlm
 man_MANS = doc/cntlm.1
 sysconf_DATA = doc/cntlm.conf
@@ -15,7 +16,7 @@ buildwin:
 	cat COPYRIGHT LICENSE | unix2dos > win/license.txt
 	sed "s/\$$VERSION/$(VER)/g" win/setup.iss.in > win/setup.iss
 	cp /bin/cygwin1.dll /bin/cygrunsrv.exe win/
-	cp cntlm.exe win/
+	cp cntlm/cntlm.exe win/
 	strip win/cntlm.exe
 	@echo
 	@echo Now open folder "win", right-click "setup.iss", then "Compile".
