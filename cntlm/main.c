@@ -97,7 +97,7 @@ int parent_count = 0;
 plist_t parent_list = NULL;
 
 /*
- * List of custom header substitutions, SOCKS5 proxy users and 
+ * List of custom header substitutions, SOCKS5 proxy users and
  * UserAgents for the scanner plugin.
  */
 hlist_t header_list = NULL;			/* forward_request() */
@@ -945,7 +945,6 @@ int main(int argc, char **argv) {
 	/*
 	 * No configuration file yet? Load the default.
 	 */
-#ifdef SYSCONFDIR
 	if (!cf) {
 #ifdef __CYGWIN__
 		tmp = getenv("PROGRAMFILES");
@@ -957,17 +956,54 @@ int main(int argc, char **argv) {
 		strlcpy(head, tmp, MINIBUF_SIZE);
 		strlcat(head, "\\cntlm\\cntlm.ini", MINIBUF_SIZE);
 		cf = config_open(head);
+        if (cf){
+            if (debug)
+                printf("Using config file found in %s%s\n", head, "\\cntlm\\cntlm.ini");
+        }
+        else{
+            printf("Could not open config file from %s%s\n", head, "\\cntlm\\cntlm.ini");
+            myexit(1);
+        }
 #else
-		cf = config_open(SYSCONFDIR "/cntlm.conf");
+#ifdef SYSCONFDIR
+        cf = config_open(SYSCONFDIR "/cntlm.conf");
+        if (cf){
+            if (debug)
+                printf("Using compile time set config file found at: %s\n", SYSCONFDIR);
+        }
 #endif
-		if (debug) {
-			if (cf)
-				printf("Default config file opened successfully\n");
-			else
-				syslog(LOG_ERR, "Could not open default config file\n");
-		}
+        /*
+         * Fall back to some default locations
+         */
+
+        if (!cf){
+            char* home;
+            home = getenv("HOME");
+
+            char conf_file[strlen(home) + strlen("/.config/cntlm.conf")];
+
+            strcpy(conf_file, home);
+            strcat(conf_file, "/.config/cntlm.conf");
+
+            cf = config_open(conf_file);
+            if (cf){
+                if (debug)
+                    printf("Config file found in ~/.config/cntlm.conf\n");
+            }
+            else{
+                cf = config_open("/etc/cntlm.conf");
+                if (cf){
+                    if(debug)
+                        printf("Config file found in /etc/cntlm.conf\n");
+                }
+                else{
+                    syslog(LOG_ERR, "Could find the config file.\n");
+                    myexit(1);
+                }
+            }
+        }
+#endif
 	}
-#endif
 
 	/*
 	 * If any configuration file was successfully opened, parse it.
@@ -1100,7 +1136,7 @@ int main(int argc, char **argv) {
 				users_list = hlist_add(users_list, tmp, head+1, HLIST_ALLOC, HLIST_ALLOC);
 			}
 		}
-					
+
 
 		/*
 		 * Add User-Agent matching patterns.
@@ -1211,7 +1247,7 @@ int main(int argc, char **argv) {
 	 * Convert optional PassNT, PassLM and PassNTLMv2 strings to hashes
 	 * unless plaintext pass was used, which has higher priority.
 	 *
-	 * If plain password is present, calculate its NT and LM hashes 
+	 * If plain password is present, calculate its NT and LM hashes
 	 * and remove it from the memory.
 	 */
 	if (!strlen(cpassword)) {
@@ -1479,7 +1515,7 @@ int main(int argc, char **argv) {
 		tv.tv_usec = 0;
 
 		/*
-		 * Wait here for data (connection request) on any of the listening 
+		 * Wait here for data (connection request) on any of the listening
 		 * sockets. When ready, establish the connection. For the main
 		 * port, a new proxy_thread() thread is spawned to service the HTTP
 		 * request. For tunneled ports, tunnel_thread() thread is created
