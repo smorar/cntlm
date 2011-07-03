@@ -92,8 +92,8 @@ AC_CHECK_FUNCS([dup2 gethostbyname gethostname inet_ntoa memset select socket st
 AC_C_BIGENDIAN
 
 AC_CONFIG_FILES([
-	libcntlm/Makefile 
-	cntlm/Makefile 
+	libcntlm/Makefile
+	cntlm/Makefile
 	Makefile
 	libcntlm.pc
 	libcntlm.spec
