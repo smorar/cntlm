@@ -1,8 +1,8 @@
 ACLOCAL_AMFLAGS = -I m4
 VER=`cat VERSION`
 SUBDIRS = libcntlm cntlm
-man_MANS = doc/cntlm.1
-sysconf_DATA = doc/cntlm.conf
+dist_man_MANS = doc/cntlm.1
+dist_sysconf_DATA = doc/cntlm.conf
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libcntlm.pc
