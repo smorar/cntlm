@@ -1,0 +1,5 @@
+usr/include/libcntlm
+usr/lib/pkgconfig/libcntlm.pc
+usr/lib/libcntlm.so
+usr/lib/libcntlm.a
+usr/lib/libcntlm.la

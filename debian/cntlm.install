@@ -1,0 +1,3 @@
+etc/cntlm.conf
+usr/bin/cntlm
+usr/share/man/man1/cntlm.1
